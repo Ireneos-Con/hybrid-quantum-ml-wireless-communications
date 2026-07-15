@@ -1,0 +1,30 @@
+Short note on the 3GPP channel model
+
+The reference paper evaluates AE and QAE over Rayleigh, Rician, and 3GPP
+block-fading channels. It uses the channel form y = hx + w, where h is the
+complex channel coefficient, and assumes perfect CSI with equalization
+x_hat = y / h.
+
+For the 3GPP case, the paper only states that the 3GPP model is used with
+mobile velocity 30 km/h. It references the MATLAB implementation of the 3GPP
+Spatial Channel Model based on TR 25.996, but does not provide full
+implementation details.
+
+The missing details include the exact scenario, path-loss/shadowing handling,
+normalization, and how the full MIMO/multipath SCM is reduced to the scalar h
+used by the autoencoder.
+
+Our first 3GPP implementation was simplified: h was generated from 6 paths and
+20 subpaths with equal path power and random phases. This makes h close to a
+complex Gaussian coefficient, so the result is naturally close to Rayleigh
+fading.
+
+We therefore implemented our own 3GPP TR 25.996-based effective block-fading
+model. It still follows the paper-compatible form y = hx + w and x_hat = y / h,
+but generates h using 6 paths, 20 subpaths per path, random path delays and
+powers, TR 25.996 Table 5.2 AoA/AoD offsets, Doppler from 30 km/h mobility,
+urban macro settings, and normalized average channel power.
+
+This model should be described as our own 3GPP TR 25.996-based effective
+block-fading model, not as an exact reproduction of the paper's hidden 3GPP
+implementation.

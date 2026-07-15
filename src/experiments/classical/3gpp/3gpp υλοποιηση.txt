@@ -1,0 +1,39 @@
+Σημείωση για το 3GPP channel model
+
+Το paper “A Hybrid Quantum-Classical Autoencoder Framework for End-to-End Communication Systems” αναφέρει ότι η αξιολόγηση γίνεται σε Rayleigh, Rician και 3GPP block-fading channels. Το γενικό μοντέλο καναλιού που δίνεται είναι:
+
+    y = h x + w
+
+όπου x είναι το transmitted signal, h είναι το complex channel coefficient και w είναι complex Gaussian noise. Για τα block-fading channels, οι συγγραφείς υποθέτουν perfect channel state information και εφαρμόζουν perfect equalization:
+
+    x_hat = y / h
+
+Για το 3GPP channel, το paper αναφέρει μόνο ότι χρησιμοποιείται το 3GPP model και ότι η ταχύτητα των κινούμενων αντικειμένων είναι 30 km/h. Η αντίστοιχη αναφορά είναι το MATLAB implementation του 3GPP Spatial Channel Model, βασισμένο στο 3GPP TR 25.996.
+
+Το πρόβλημα είναι ότι το paper δεν δίνει πλήρη υλοποίηση του 3GPP model. Δεν καθορίζει ρητά ποιο scenario χρησιμοποιήθηκε, π.χ. urban macro, suburban macro ή urban micro. Επίσης δεν αναφέρει αν χρησιμοποιήθηκαν path loss και shadowing, αν το fading κανονικοποιήθηκε, πώς μετατράπηκε το πλήρες MIMO/multipath SCM σε scalar block-fading coefficient h, ή αν τα path delays επηρέασαν το τελικό effective channel. Επομένως, η ακριβής αναπαραγωγή του 3GPP αποτελέσματος του paper δεν είναι πλήρως προσδιορισμένη από το ίδιο το paper.
+
+Στη δική μας υλοποίηση, αρχικά χρησιμοποιήθηκε ένα απλοποιημένο 3GPP-inspired μοντέλο, όπου το h παραγόταν ως άθροισμα 6 paths και 20 subpaths ανά path με ίση ισχύ και τυχαίες φάσεις. Αυτό όμως οδηγεί σε channel coefficient που είναι στατιστικά πολύ κοντά σε complex Gaussian, άρα το πλάτος του είναι Rayleigh-like. Για αυτό οι καμπύλες 3GPP ήταν πολύ κοντά στις Rayleigh καμπύλες.
+
+Για να γίνει πιο σωστή η υλοποίηση, δημιουργήσαμε νέο 3GPP TR 25.996-based effective block-fading model. Το νέο μοντέλο κρατά τη μορφή που χρησιμοποιεί το paper, δηλαδή:
+
+    y = h x + w
+    x_hat = y / h
+
+αλλά παράγει το h με βάση στοιχεία του 3GPP TR 25.996 SCM. Συγκεκριμένα χρησιμοποιεί:
+
+    N = 6 paths
+    M = 20 subpaths per path
+    velocity = 30 km/h
+    carrier frequency = 1.9 GHz
+    urban macro scenario
+    random path delays
+    random path powers
+    random subpath phases
+    AoD/AoA generation
+    Table 5.2 subpath angular offsets
+    Doppler phase due to mobility
+    perfect equalization
+
+Για να μην αλλάξει τεχνητά το SNR scale, το fading κανονικοποιείται ώστε η μέση ισχύς του effective channel coefficient να είναι περίπου 1. Το path loss και το shadowing δεν εφαρμόζονται ως absolute received-power attenuation στο training, επειδή το paper αξιολογεί BLER ως συνάρτηση του SNR και δεν δίνει ξεκάθαρη επιλογή για distance/pathloss normalization. Έτσι, το μοντέλο παραμένει συμβατό με το autoencoder setup και με τη σύγκριση BLER vs SNR.
+
+Παρόλα αυτά, επειδή το τελικό κανάλι παραμένει scalar flat block-fading coefficient με perfect equalization, αναμένεται να εξακολουθεί να μοιάζει αρκετά με Rayleigh. Αυτό συμβαίνει επειδή το άθροισμα πολλών τυχαίων subpaths οδηγεί φυσικά σε complex Gaussian-like coefficient. Για να απομακρυνθεί περισσότερο από Rayleigh και να προσεγγίσει πλήρες 3GPP behavior, θα χρειαζόταν πιο πλήρης μοντελοποίηση, όπως frequency-selective multipath, pathloss/shadowing χωρίς normalization, MIMO spatial matrices, imperfect equalization ή channel correlation over time.

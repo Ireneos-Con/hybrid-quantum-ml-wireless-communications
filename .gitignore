@@ -73,6 +73,7 @@ datasets/
 *.hdf5
 *.pkl
 *.pickle
+!results/data/**/*.npz
 
 # Generated outputs
 outputs/

@@ -102,9 +102,11 @@ The evaluation includes:
 
 ## Source Code Availability
 
-The current version of this repository is portfolio-oriented and focuses on the thesis, poster, methodology, and results. Source code may be added later after review and cleanup.
+This repository includes selected public experiment scripts and final result artifacts. The code is organized as a research archive rather than a packaged Python library.
 
-If the implementation is not included, this repository still documents the research objective, model design, evaluation setup, and main findings.
+The included files focus on the final CAE, HAE, UR-SWIPT, and plotting experiments used for the thesis. HPC logs, checkpoints, cache files, temporary experiments, and machine-specific SLURM scripts are intentionally excluded.
+
+See [src/README.md](src/README.md) for the code layout.
 
 ## Citation
 
