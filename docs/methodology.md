@@ -1,89 +1,121 @@
 # Methodology
 
-This document explains the research and experimental process used in the thesis.
+This document summarizes the research methodology used in the thesis.
 
 ## Problem Definition
 
-Describe the communication task studied in the thesis.
+The thesis studies end-to-end wireless communication systems where the transmitter and receiver are modeled jointly as an autoencoder. The main problem is model complexity: as autoencoder-based communication systems scale, the number of trainable parameters can grow significantly.
 
-Examples:
+The research investigates whether a hybrid quantum-classical model can reduce the number of trainable parameters while maintaining communication reliability.
 
-- Signal classification
-- Channel estimation
-- Symbol detection
-- BLER prediction
-- Performance modeling under fading channels
+## Classical Autoencoder Baseline
 
-## Dataset or Simulation Setup
+The classical autoencoder (CAE) represents the transmitter as a neural-network encoder and the receiver as a neural-network decoder. A source message is encoded into a transmitted representation, passed through a channel model, and decoded back into an estimated message.
 
-Document how the data was created or obtained.
+The CAE is used as the baseline for performance and parameter-count comparison.
 
-Include:
+## Hybrid Autoencoder Architecture
 
-- Channel model
-- Modulation scheme
-- SNR range
-- Number of samples
-- Train, validation, and test split
-- Preprocessing steps
+The hybrid autoencoder (HAE) keeps the same end-to-end communication framework, but replaces the classical encoder with a quantum encoder.
 
-## Model Design
+The HAE uses:
 
-Describe the models used in the experiments.
+- Amplitude embedding for classical message representation in the baseline quantum encoder
+- Parameterized quantum circuits (PQCs)
+- Trainable Ry rotations
+- Nearest-neighbor CNOT entanglement
+- Pauli-Z measurements
+- Separate real and imaginary branches
+- Power normalization before channel transmission
+- A classical decoder at the receiver
 
-### Classical Baseline
+## Low-Parameter Quantum Encoder Variants
 
-Add details about the baseline model architecture and why it was selected.
+Two lower-parameter PQC variants were studied for the (7, 4) setting.
 
-### Quantum or Hybrid Model
+### P12 Variant
 
-Add details about:
+The P12 model uses parity-based parameter sharing. Even-indexed qubits share one trainable rotation parameter and odd-indexed qubits share another parameter within each layer.
 
-- Encoding method
-- Quantum circuit structure
-- Number of qubits
-- Number of layers
-- Trainable parameters
-- Measurement strategy
-- Classical post-processing layers, if any
+This gives:
 
-## Training Setup
+```text
+3 layers x 2 groups x 2 branches = 12 trainable quantum encoder parameters
+```
 
-Include:
+### P18 Variant
 
-- Loss function
-- Optimizer
-- Learning rate
-- Batch size
-- Number of epochs
-- Hardware or runtime environment
-- Random seed strategy
+The P18 model uses three fixed qubit groups:
 
-## Evaluation Metrics
+```text
+G1 = {0, 3, 6}
+G2 = {1, 4}
+G3 = {2, 5}
+```
 
-Add the metrics used in the thesis.
+This gives:
 
-Examples:
+```text
+3 layers x 3 groups x 2 branches = 18 trainable quantum encoder parameters
+```
 
-- BLER
-- BER
-- Accuracy
-- Precision and recall
-- Loss
-- Runtime or training cost
+P18 was less aggressive than P12 and preserved more of the original HAE behavior.
 
-## Experimental Protocol
+## Custom Quantum Encoder
 
-Describe how experiments were repeated, compared, and validated.
+A custom quantum encoder was also designed. Instead of amplitude embedding, it uses angle embedding based on the binary representation of each transmitted message.
 
-## Limitations
+The design includes:
 
-Document the main limitations of the project.
+- Bit-to-angle mapping through Rx rotations
+- A trainable PQC with Ry rotations and CNOT entanglement
+- A lightweight classical controller
+- Symbol-dependent layer scaling
+- Symbol-dependent readout rotation before Pauli-Z measurement
+- Separate real and imaginary quantum branches
+- Output stacking and power normalization
 
-Examples:
+The custom encoder was evaluated in the (7, 4) Rayleigh setting and showed BLER behavior close to the reference hybrid implementation.
 
-- Simulation assumptions
-- Dataset size
-- Quantum circuit scale
-- Hardware constraints
-- Noise-free simulator assumptions
+## Nonlinear UR-SWIPT Setting
+
+The thesis also studies a nonlinear communication scenario using Unified Receiver Simultaneous Wireless Information and Power Transfer (UR-SWIPT).
+
+In UR-SWIPT, the received signal is processed through a rectifying receiver, making the effective channel nonlinear. The hybrid implementation replaces the encoder with a quantum-based architecture while keeping the rectifier model and decoder in the classical domain.
+
+The UR-SWIPT evaluation focuses on information decoding (ID) performance and parameter savings.
+
+## Training and Evaluation Setup
+
+The linear-channel experiments use:
+
+- Batch size: 32
+- Epochs: 80
+- Training SNR: 10 dB
+- Optimizer: Adam
+- Learning rate: 0.001
+- Evaluation SNR range: 0 to 20 dB
+- Monte Carlo evaluation
+- 75,000 generated test samples per SNR point
+
+The primary evaluation metrics are:
+
+- BLER for linear-channel autoencoder models
+- SER for UR-SWIPT information decoding
+- Trainable parameter count
+
+## Computational Infrastructure
+
+Experiments were developed locally and executed through the University of Cyprus HPC infrastructure.
+
+The workflow used:
+
+- GitHub for version control and transfer to the HPC environment
+- SLURM job submission
+- CPU compute nodes
+- PyTorch for classical neural-network components
+- PennyLane for quantum circuits
+- `lightning.qubit` as the quantum simulation backend
+- Saved `.npz`, `.out`, and `.err` outputs for later plotting
+
+The thesis notes that `lightning.gpu` would be suitable for GPU-accelerated execution, but the available infrastructure used CPU-based `lightning.qubit`.

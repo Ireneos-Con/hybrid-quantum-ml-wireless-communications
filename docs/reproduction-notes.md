@@ -1,28 +1,47 @@
 # Reproduction Notes
 
-This repository is currently prepared as a portfolio showcase. Full reproduction may require source code, datasets, and environment configuration that are not yet public.
+This repository is currently portfolio-oriented. The full source implementation is not included in the current public version.
 
-## Current Status
+## Current Public Artifacts
 
-- Thesis summary: pending
-- Methodology notes: pending
-- Result figures: pending
-- Thesis PDF: pending
-- Presentation slides: pending
-- Source code: optional
+- Full thesis PDF
+- Research poster PDF
+- Thesis summary
+- Methodology notes
+- Results summary
+- Optional source-code folder reserved for future release
 
-## Reproduction Requirements
+## Implementation Status
 
-If the source code is published later, add:
+The thesis implementation used a Python-based ML/QML workflow with PyTorch and PennyLane. Experiments were developed locally and executed on HPC infrastructure through SLURM batch jobs.
 
-- Python version
-- Package dependencies
-- Dataset generation instructions
-- Training commands
-- Evaluation commands
-- Expected output files
+The code can be added later after cleanup. Before publishing source code, the following should be reviewed:
 
-## Suggested Environment Setup
+- Private paths
+- University HPC paths
+- SLURM account or partition information
+- Generated logs
+- Large result files
+- Checkpoints
+- Unpublished collaborator code
+- Any private research dependencies
+
+## Expected Environment
+
+If the implementation is added later, the expected stack is:
+
+```text
+Python 3.10+
+PyTorch
+PennyLane
+PennyLane Lightning
+NumPy
+SciPy
+Matplotlib
+SLURM for HPC execution
+```
+
+## Suggested Setup
 
 ```bash
 python -m venv .venv
@@ -30,7 +49,7 @@ python -m venv .venv
 pip install -r requirements.txt
 ```
 
-For Linux or macOS:
+For Linux or HPC environments:
 
 ```bash
 python3 -m venv .venv
@@ -38,21 +57,17 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-## Suggested Experiment Commands
+## Suggested Future Commands
+
+The exact commands depend on the final public code structure. A clean implementation could expose commands such as:
 
 ```bash
-python src/generate_dataset.py
-python src/train.py --config configs/default.yaml
-python src/evaluate.py --checkpoint checkpoints/model.pt
+python src/train_linear.py --model hae --channel rayleigh --n 7 --k 4
+python src/evaluate_linear.py --model hae --channel rayleigh --n 7 --k 4
+python src/train_urswipt.py --model hae --M 8
+python src/plot_results.py
 ```
 
-## Notes for Public Release
+## Public Release Recommendation
 
-Before making implementation files public, review:
-
-- University or supervisor publication rules
-- Dataset licensing
-- Third-party code licenses
-- API keys, paths, or private credentials
-- Large binary files
-- Generated checkpoints
+For a portfolio repository, it is acceptable to keep the implementation private and document the research clearly. If code is added, publish only a cleaned minimal version that reproduces the main figures or demonstrates the model architecture.

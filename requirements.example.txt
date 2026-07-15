@@ -8,4 +8,5 @@ matplotlib
 scikit-learn
 torch
 pennylane
+pennylane-lightning
 jupyter

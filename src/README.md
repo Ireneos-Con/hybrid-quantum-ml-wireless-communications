@@ -1,19 +1,43 @@
 # Source Code
 
-This directory is reserved for source code if the implementation is added later.
+This folder is reserved for a cleaned public implementation if the source code is added later.
 
-The repository can remain portfolio-oriented without publishing the full implementation.
+The current repository is portfolio-oriented and does not require source code to communicate the thesis work. If code is published, it should be reviewed and organized before being added.
 
-Suggested future structure:
+## Recommended Future Structure
 
 ```text
 src/
-├── data/
 ├── models/
+│   ├── classical_autoencoder.py
+│   ├── hybrid_autoencoder.py
+│   ├── quantum_encoder.py
+│   └── custom_quantum_encoder.py
+├── channels/
+│   ├── rayleigh.py
+│   ├── rician.py
+│   ├── gpp.py
+│   └── urswipt.py
 ├── training/
+│   ├── train_linear.py
+│   └── train_urswipt.py
 ├── evaluation/
-├── visualization/
+│   ├── evaluate_bler.py
+│   └── evaluate_ser.py
+├── plotting/
+│   └── plot_results.py
 └── utils/
 ```
 
-Before publishing code, remove private paths, credentials, unpublished datasets, and unnecessary generated files.
+## Before Publishing Code
+
+Check for:
+
+- Private file paths
+- HPC-specific paths
+- SLURM account names
+- Large generated outputs
+- Unnecessary checkpoints
+- Private collaborator code
+- Unused experimental scripts
+- Hardcoded random seeds or undocumented settings

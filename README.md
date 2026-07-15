@@ -1,68 +1,77 @@
-# Hybrid-Quantum ML for Wireless Communications
+# Hybrid Quantum-Classical Machine Learning for Autoencoder-Based Wireless Communication Systems
 
-Portfolio repository for my completed thesis project on applying hybrid quantum machine learning techniques to wireless communication systems.
+Portfolio repository for my completed diploma thesis at the Department of Electrical and Computer Engineering, University of Cyprus.
 
-This repository is designed to showcase the project objective, methodology, experiments, and results in a clear portfolio format. The complete implementation can be added later if appropriate. Until then, the repository can present the research work through the thesis PDF, presentation slides, diagrams, result figures, and reproducibility notes.
+The thesis investigates hybrid quantum-classical machine learning models for end-to-end autoencoder-based wireless communication systems. The main focus is parameter efficiency: whether a hybrid autoencoder (HAE), using a quantum encoder and a classical decoder, can reduce the number of trainable parameters while maintaining communication performance close to a classical autoencoder (CAE).
+
+## Thesis Artifacts
+
+- [Full thesis PDF](thesis/hybrid-quantum-classical-ml-autoencoder-wireless-communication-systems.pdf)
+- [Research poster](presentation/ireneos-poster.pdf)
+- [Thesis summary](docs/thesis-summary.md)
+- [Methodology](docs/methodology.md)
+- [Reproduction notes](docs/reproduction-notes.md)
 
 ## Project Overview
 
-Wireless communication systems rely on accurate signal detection and channel-aware processing, especially under noisy and fading channel conditions. This thesis explores the use of hybrid quantum machine learning models for wireless communications, with a focus on evaluating whether quantum-inspired or hybrid quantum-classical approaches can support communication-related prediction or classification tasks.
+Machine learning has become increasingly important in wireless communications, especially through end-to-end learning architectures where the transmitter and receiver are modeled jointly as an autoencoder. As these systems scale, classical models can require large numbers of trainable parameters, increasing memory requirements and model complexity.
 
-The project investigates:
+This thesis studies hybrid quantum-classical autoencoders as a compact alternative. The encoder is implemented using parameterized quantum circuits (PQCs), while the decoder remains classical. The system is evaluated across linear fading channels and a nonlinear UR-SWIPT communication setting.
 
-- Quantum machine learning concepts applied to wireless communication problems
-- Classical and quantum/hybrid model design
-- Simulation of wireless channel conditions
-- Model training and evaluation
-- Performance comparison using communication-relevant metrics
+## Research Questions
 
-## Objectives
+- Can a hybrid quantum-classical autoencoder reduce trainable parameters while preserving BLER performance close to a classical autoencoder?
+- How does the hybrid model behave across Rayleigh, Rician, and 3GPP fading channels?
+- Can the quantum encoder be compressed further through parameter-sharing variants such as P12 and P18?
+- Can a custom quantum encoder remain competitive while staying within a controlled parameter budget?
+- Does the hybrid approach remain useful in nonlinear wireless communication channels such as UR-SWIPT?
 
-- Study the intersection of quantum machine learning and wireless communications.
-- Build an experimental pipeline for training and evaluating models.
-- Compare model behavior under different channel or noise conditions.
-- Present results using clear plots, tables, and technical analysis.
-- Provide a portfolio-ready summary of the research without requiring public release of the full source code.
+## Key Findings
+
+- The HAE achieved approximately 60-70% parameter reduction compared with the CAE in the tested linear-channel configurations.
+- Across Rayleigh, Rician, and 3GPP channels, the HAE achieved BLER performance close to the CAE while using significantly fewer trainable parameters.
+- The P18 low-parameter quantum encoder preserved most of the original HAE performance, while P12 introduced more visible degradation.
+- A custom quantum encoder using angle embedding, adaptive layer scaling, and readout control achieved BLER behavior close to the reference HAE in the (7, 4) Rayleigh setting.
+- In the nonlinear UR-SWIPT information decoding task, the HAE reduced trainable parameters by approximately 37.3% while maintaining SER performance close to the learned classical and algorithmic references.
 
 ## Methodology
 
-The thesis follows an experimental research workflow:
+The work compares classical and hybrid quantum-classical autoencoder architectures for wireless communication.
 
-1. Define the communication problem and simulation assumptions.
-2. Generate or prepare the dataset used for training and evaluation.
-3. Implement baseline classical models.
-4. Design quantum or hybrid quantum-classical machine learning models.
-5. Train the models under controlled experiment settings.
-6. Evaluate performance using relevant metrics.
-7. Compare results and discuss limitations.
+The evaluation includes:
 
-Recommended methodology artifacts to add:
+- CAE vs HAE over linear fading channels
+- Rayleigh, Rician, and 3GPP channel models
+- BLER vs SNR evaluation
+- Trainable parameter comparison
+- Low-parameter quantum encoder variants P12 and P18
+- A custom quantum encoder with a lightweight classical controller
+- Hybrid UR-SWIPT evaluation for nonlinear wireless communication
+- HPC-based training using SLURM and PennyLane's `lightning.qubit` simulator
 
-- System architecture diagram
-- Dataset generation description
-- Model architecture diagrams
-- Training configuration summary
-- Evaluation protocol
-- Comparison tables
+## Results Summary
 
-## Results
+| Experiment | Main Result |
+| --- | --- |
+| Linear channels | HAE achieved comparable BLER to CAE with around 60-70% fewer trainable parameters. |
+| Rayleigh channel | HAE stayed close to CAE in the (4, 4), (7, 4), and (8, 8) settings. |
+| Rician channel | HAE remained close to CAE, with the (7, 4) HAE slightly outperforming CAE at high SNR in the reported evaluation. |
+| 3GPP channel | HAE and CAE showed similar BLER behavior, especially in the (7, 4) setting. |
+| P12/P18 variants | P18 was a balanced low-parameter design; P12 compressed more aggressively but degraded more. |
+| Custom encoder | Reached BLER trends close to the reference (7, 4) HAE Rayleigh implementation. |
+| UR-SWIPT | HAE reduced parameters from 169 to 106 in the M = 8 setup, a reduction of about 37.3%. |
 
-Add the main result figures in the `results/figures/` directory and reference them here.
+## Technical Stack
 
-Suggested result sections:
-
-- BLER vs SNR
-- Accuracy or loss curves
-- Classical vs quantum model comparison
-- Training performance
-- Model limitations
-- Key observations
-
-Example:
-
-```md
-![BLER vs SNR](results/figures/bler-vs-snr.png)
-```
+- Python
+- PyTorch
+- PennyLane
+- PennyLane `lightning.qubit`
+- NumPy
+- SciPy
+- Matplotlib
+- SLURM
+- University HPC infrastructure
 
 ## Repository Structure
 
@@ -71,93 +80,39 @@ Example:
 ├── README.md
 ├── CITATION.cff
 ├── LICENSE
-├── .gitignore
 ├── docs/
 │   ├── thesis-summary.md
 │   ├── methodology.md
 │   └── reproduction-notes.md
+├── presentation/
+│   ├── README.md
+│   └── ireneos-poster.pdf
+├── thesis/
+│   ├── README.md
+│   └── hybrid-quantum-classical-ml-autoencoder-wireless-communication-systems.pdf
 ├── results/
 │   ├── README.md
 │   ├── figures/
 │   └── tables/
-├── presentation/
+├── notebooks/
 │   └── README.md
-├── thesis/
-│   └── README.md
-├── src/
-│   └── README.md
-└── notebooks/
+└── src/
     └── README.md
 ```
 
-## Requirements
-
-If source code is added later, the project is expected to use a Python research stack such as:
-
-- Python 3.10+
-- PyTorch
-- NumPy
-- SciPy
-- Matplotlib
-- pandas
-- scikit-learn
-- PennyLane or Qiskit
-- Jupyter Notebook
-
-Create a `requirements.txt` or `environment.yml` once the implementation is added.
-
-## Reproduction Steps
-
-The repository is currently portfolio-oriented. Full reproduction depends on whether the implementation and datasets are made public.
-
-Suggested reproduction flow if code is added:
-
-```bash
-git clone https://github.com/<your-username>/<repository-name>.git
-cd <repository-name>
-python -m venv .venv
-.venv\Scripts\activate
-pip install -r requirements.txt
-python src/train.py
-python src/evaluate.py
-```
-
-For now, see:
-
-- `docs/thesis-summary.md`
-- `docs/methodology.md`
-- `docs/reproduction-notes.md`
-- `results/`
-
-## Thesis and Presentation
-
-Add final academic files here:
-
-- Thesis PDF: `thesis/`
-- Presentation slides: `presentation/`
-- Result figures: `results/figures/`
-- Result tables: `results/tables/`
-
-If the full thesis PDF should not be public, add only a summary PDF or abstract.
-
 ## Source Code Availability
 
-The complete implementation is optional in this repository.
+The current version of this repository is portfolio-oriented and focuses on the thesis, poster, methodology, and results. Source code may be added later after review and cleanup.
 
-If the source code is not included, use this note:
-
-> The complete implementation is not currently included in this repository. This repository is intended to showcase the project's objectives, methodology, results, and academic outputs.
-
-If source code is added later, place it under `src/` and document the setup steps.
+If the implementation is not included, this repository still documents the research objective, model design, evaluation setup, and main findings.
 
 ## Citation
 
-If you use or reference this work, please cite it using the metadata in `CITATION.cff`.
+If you reference this work, please use the metadata in [CITATION.cff](CITATION.cff).
 
 ## Author
 
-Ireneos Constantinou
-
-## License
-
-This repository includes a placeholder MIT License. Confirm that this license is appropriate before publishing source code, datasets, or thesis material.
+Ireneos Constantinou  
+Department of Electrical and Computer Engineering  
+University of Cyprus  
+May 2026

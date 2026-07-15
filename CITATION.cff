@@ -1,17 +1,19 @@
 cff-version: 1.2.0
 message: "If you use or reference this work, please cite it using this metadata."
-title: "Hybrid-Quantum ML for Wireless Communications"
+title: "Hybrid Quantum-Classical Machine Learning for Autoencoder-Based Wireless Communication Systems"
 authors:
   - family-names: "Constantinou"
     given-names: "Ireneos"
 type: thesis
 date-released: 2026-07-15
 repository-code: "https://github.com/<your-username>/<repository-name>"
-abstract: "Portfolio repository for a completed thesis project on applying hybrid quantum machine learning techniques to wireless communication systems."
+abstract: "Portfolio repository for a completed thesis project on hybrid quantum-classical machine learning for autoencoder-based wireless communication systems."
 keywords:
   - quantum machine learning
+  - hybrid quantum-classical machine learning
   - wireless communications
+  - autoencoders
   - PyTorch
   - PennyLane
-  - signal processing
+  - UR-SWIPT
 license: MIT

@@ -1,11 +1,25 @@
 # Thesis
 
-Add thesis document files here.
+This folder contains the final thesis PDF.
 
-Suggested files:
+## File
 
-- `thesis.pdf`
-- `abstract.pdf`
-- `portfolio-summary.pdf`
+- [hybrid-quantum-classical-ml-autoencoder-wireless-communication-systems.pdf](hybrid-quantum-classical-ml-autoencoder-wireless-communication-systems.pdf)
 
-If the full thesis should not be public, include only an abstract or summary version.
+## Thesis Details
+
+Title: Hybrid Quantum-Classical Machine Learning for Autoencoder-Based Wireless Communication Systems  
+Author: Ireneos Constantinou  
+Department: Electrical and Computer Engineering  
+University: University of Cyprus  
+Advisor: Dr Ioannis Krikides  
+Date: May 2026
+
+## Keywords
+
+- Wireless communications
+- Autoencoders
+- Hybrid quantum-classical machine learning
+- Quantum neural networks
+- Parameterized quantum circuits
+- UR-SWIPT
