@@ -1,0 +1,93 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDEs and editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+secrets/
+credentials/
+*.key
+*.pem
+
+# PyTorch and ML artifacts
+checkpoints/
+models/
+runs/
+wandb/
+mlruns/
+lightning_logs/
+*.pt
+*.pth
+*.ckpt
+*.onnx
+
+# Data artifacts
+data/raw/
+data/processed/
+data/interim/
+datasets/
+*.npy
+*.npz
+*.h5
+*.hdf5
+*.pkl
+*.pickle
+
+# Generated outputs
+outputs/
+logs/
+reports/generated/
+
+# Large media and exports
+*.mp4
+*.avi
+*.mov
+*.zip
+*.tar
+*.tar.gz
+*.7z
+
+# Keep portfolio PDFs allowed by default.
+# Add specific files here if needed, for example:
+# thesis/private-draft.pdf

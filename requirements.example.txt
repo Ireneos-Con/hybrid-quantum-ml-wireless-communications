@@ -1,0 +1,11 @@
+# Example dependency file.
+# Rename to requirements.txt if source code is added.
+
+numpy
+scipy
+pandas
+matplotlib
+scikit-learn
+torch
+pennylane
+jupyter

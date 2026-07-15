@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use or reference this work, please cite it using this metadata."
+title: "Quantum Machine Learning for Wireless Communications"
+authors:
+  - family-names: "Constantinou"
+    given-names: "Ireneos"
+type: thesis
+date-released: 2026-07-15
+repository-code: "https://github.com/<your-username>/<repository-name>"
+abstract: "Portfolio repository for a completed thesis project on applying quantum machine learning techniques to wireless communication systems."
+keywords:
+  - quantum machine learning
+  - wireless communications
+  - PyTorch
+  - PennyLane
+  - signal processing
+license: MIT
