@@ -23,7 +23,7 @@ This corresponds to approximately 60-70% fewer trainable parameters.
 The BLER vs SNR evaluation showed that the HAE remained close to the CAE across:
 
 - Rayleigh fading
-- Rician fading
+- Rician fading with K-factor 5
 - 3GPP fading
 
 For example, in the Rayleigh channel at 20 dB, the HAE remained close to the CAE in the tested (4, 4), (7, 4), and (8, 8) settings.

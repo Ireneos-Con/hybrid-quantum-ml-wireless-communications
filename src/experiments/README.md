@@ -7,7 +7,7 @@ This directory contains selected public experiment scripts from the thesis.
 `classical/` contains CAE experiments for:
 
 - Rayleigh fading
-- Rician fading
+- Rician fading with K-factor 5
 - 3GPP fading
 - (4, 4), (7, 4), and (8, 8) configurations where available
 
@@ -22,6 +22,8 @@ These scripts support the CAE side of the CAE vs HAE comparisons.
 - `hae-8-8`
 
 The (7, 4) folder also includes low-parameter quantum encoder variants where available.
+
+Rician experiments are documented using the K-factor 5 setup described in the thesis.
 
 ## UR-SWIPT Experiments
 

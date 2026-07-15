@@ -12,7 +12,7 @@ results/data/
 
 ## Linear Channels
 
-`linear-channels/` contains final CAE, HAE, BPSK, Hamming, Rayleigh, Rician, and 3GPP comparison data where available.
+`linear-channels/` contains final CAE, HAE, BPSK, Hamming, Rayleigh, Rician, and 3GPP comparison data where available. Rician results correspond to the K-factor 5 setup described in the thesis.
 
 ## UR-SWIPT
 
