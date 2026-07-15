@@ -2,7 +2,7 @@
 
 ## Title
 
-Quantum Machine Learning for Wireless Communications
+Hybrid-Quantum ML for Wireless Communications
 
 ## Abstract
 

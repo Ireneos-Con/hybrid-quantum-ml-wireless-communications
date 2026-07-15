@@ -1,12 +1,12 @@
-# Quantum Machine Learning for Wireless Communications
+# Hybrid-Quantum ML for Wireless Communications
 
-Portfolio repository for my completed thesis project on applying quantum machine learning techniques to wireless communication systems.
+Portfolio repository for my completed thesis project on applying hybrid quantum machine learning techniques to wireless communication systems.
 
 This repository is designed to showcase the project objective, methodology, experiments, and results in a clear portfolio format. The complete implementation can be added later if appropriate. Until then, the repository can present the research work through the thesis PDF, presentation slides, diagrams, result figures, and reproducibility notes.
 
 ## Project Overview
 
-Wireless communication systems rely on accurate signal detection and channel-aware processing, especially under noisy and fading channel conditions. This thesis explores the use of quantum machine learning models for wireless communications, with a focus on evaluating whether quantum-inspired or hybrid quantum-classical approaches can support communication-related prediction or classification tasks.
+Wireless communication systems rely on accurate signal detection and channel-aware processing, especially under noisy and fading channel conditions. This thesis explores the use of hybrid quantum machine learning models for wireless communications, with a focus on evaluating whether quantum-inspired or hybrid quantum-classical approaches can support communication-related prediction or classification tasks.
 
 The project investigates:
 
